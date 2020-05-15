@@ -1,26 +1,26 @@
-var imagesToShowBefore = [1, 1, 2, 2, 3, 3, 4, 4]
+let imagesToShowBefore = [1, 1, 2, 2, 3, 3, 4, 4]
 let imagesToShow = shuffle(imagesToShowBefore);
 
-var images = document.querySelectorAll("img");
+let images = document.querySelectorAll("img");
 
-var moveNumber = document.getElementById("js-moveNumber");
-var pairFound = document.getElementById("js-pairFound");
-var numberClick = 0;
-var numberPairFound = 0;
+const moveNumber = document.getElementById("js-moveNumber");
+const pairFound = document.getElementById("js-pairFound");
+
+let numberClick = 0;
+let numberPairFound = 0;
 
 // array to save last two images clicked : format = [imageClicked1, indexImageToShow1, imageClicked2, indexImageToShow2 ]
-var lastImagesCliked = [];
+let lastImagesCliked = [];
 //convert nodesList to array
-var imagesNotFound = Array.from(images);
+let imagesNotFound = Array.from(images);
+let isGameFinished = false;
 
 
 const showImage = function (e) {
-    var image = e.target;
-    //console.log(image);
-    var index = image.getAttribute("data-id");
-    console.log("Click sur l'image : ", index);
+    const image = e.target;
+    const index = image.getAttribute("data-id");
 
-    var imgShow = imagesToShow[index - 1];
+    let imgShow = imagesToShow[index - 1];
 
     // image to our array
     lastImagesCliked.push(image);
@@ -32,7 +32,6 @@ const showImage = function (e) {
 const showAndPreventClick = function (e) {
     showImage(e)
     numberClick++;
-    console.log("Nombre de click", numberClick);
 
     var lastImages = lastImagesCliked;
     // remove click on 1st card until 2nd card is clicked
@@ -41,32 +40,29 @@ const showAndPreventClick = function (e) {
     if (isEven(numberClick)) {
         moveNumber.innerText = numberClick / 2;
 
-        // disable click all images
-        imagesNotFound.forEach(function (image) {
-            if (image != null) {
-                image.removeEventListener('click', showAndPreventClick);
-            }
-        });
+        disableClick();
 
-        // is it a Pair or not
+        // is it a pair or not ?
         if (lastImagesCliked[1] === lastImagesCliked[3]) {
             imagesNotFound[parseInt(lastImagesCliked[0].getAttribute("data-id"), 10) - 1] = null;
             imagesNotFound[parseInt(lastImagesCliked[2].getAttribute("data-id"), 10) - 1] = null;
-            console.log(imagesNotFound);
+
+            // update result
+            numberPairFound++;
+            pairFound.innerText = numberPairFound;
 
             window.setTimeout(function () {
-                numberPairFound++;
-                pairFound.innerText = numberPairFound;
+                showResult();
                 resetClickOnBlackImages();
-            }, 2000);
+            }, 1000);
         } else {
             window.setTimeout(function () {
-                console.log("array", lastImages);
                 lastImages[0].src = "images/black.jpeg";
                 lastImages[2].src = "images/black.jpeg";
 
-                resetClickOnBlackImages();
-            }, 2000);
+                showResult();
+                !isGameFinished && resetClickOnBlackImages();
+            }, 1000);
         }
         // reset last 2 images array
         lastImagesCliked = [];
@@ -74,11 +70,19 @@ const showAndPreventClick = function (e) {
 
 };
 
-for (var i = 0; i < images.length; i++) {
+for (let i = 0; i < images.length; i++) {
     self = images[i];
     self.addEventListener('click', showAndPreventClick);
 }
 
+function disableClick() {
+    // disable click all images
+    imagesNotFound.forEach(function (image) {
+        if (image != null) {
+            image.removeEventListener('click', showAndPreventClick);
+        }
+    });
+}
 
 function resetClickOnBlackImages() {
     imagesNotFound.forEach(function (image) {
@@ -88,6 +92,21 @@ function resetClickOnBlackImages() {
 
 function isEven(num) {
     return !(num % 2);
+}
+
+function showResult() {
+    const result = document.getElementById("result");
+    const replay = document.getElementById("replay");
+    if (moveNumber.innerText >= 10) {
+        result.innerText = "You lost 😞";
+        isGameFinished = true;
+        disableClick();
+        replay.style.visibility = "visible";
+        document.getElementById("result");
+    } else if (numberPairFound == 4) {
+        result.innerText = "You win 🥳";
+        replay.style.visibility = "visible";
+    }
 }
 
 /**
