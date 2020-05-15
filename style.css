@@ -7,6 +7,7 @@
 body {
     background-color: #eee;
 }
+
 img {
     width: 250px;
     height: 250px;
@@ -19,14 +20,16 @@ img[src="images/black.jpeg"] {
 }
 
 .content {
+    margin: 20px 0 10px;
     display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
-.card {
-    padding: 2px;
-    margin: 20px 0;
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 8vh 3vw;
 }
 
 .info {
@@ -45,6 +48,12 @@ img[src="images/black.jpeg"] {
     margin: 0 2em;
 }
 
+.info .record {
+    position: absolute;
+    left: 4em;
+    font-size: 20px;
+}
+
 .info button {
     visibility: hidden;
     position: absolute;
@@ -54,4 +63,78 @@ img[src="images/black.jpeg"] {
     border: 1px solid black;
     border-radius: 5px;
     background-color: #fff;
+}
+
+.progress {
+    display: flex;
+    justify-content: center;
+}
+
+#bar {
+    width: 150px;
+    border-radius: 100px;
+    background-color: #ddd;
+}
+
+#progress {
+    width: 150px;
+    border-radius: 100px;
+    height: 20px;
+    background-color: #27982f;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#content {
+    flex: 1;
+}
+
+footer {
+    text-align: right;
+    margin: 10px;
+    font-size: 20px;
+    font-style: italic;
+    color: #1d1d1d;
+}
+
+
+@media screen and (max-width: 700px ) {
+    img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        gap: 3px 15vw;
+    }
+
+
+    .info .record {
+        position: static;
+    }
+
+    .info * {
+        font-size: 15px;
+    }
+}
+
+@media screen and (min-width: 700px)  and (max-width: 900px ) {
+    img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+
+@media screen and (min-width: 900px)  and (max-width: 1200px ) {
+    img {
+        width: 200px;
+        height: 200px;
+    }
 }
