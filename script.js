@@ -81,6 +81,7 @@ function updatePersonalRecord() {
         document.getElementById("record").innerText = "😎 PR : " + localStorage.getItem("record") + " moves";
     }
 }
+
 updatePersonalRecord();
 
 function disableClick() {
@@ -112,10 +113,10 @@ function showResult() {
         replay.style.visibility = "visible";
         document.getElementById("result");
     } else if (numberPairFound == 4) {
-        result.innerText = "You win 🥳";
+        result.innerText = "You won 🥳";
         replay.style.visibility = "visible";
         // PR
-        if (localStorage.getItem("record") > moveNumber.innerText) {
+        if (localStorage.getItem("record") == null || localStorage.getItem("record") > moveNumber.innerText) {
             alert("New Personal Record 🥳 : " + moveNumber.innerText + " moves");
             localStorage.setItem("record", moveNumber.innerText);
         }
@@ -141,7 +142,11 @@ function decreaseProgress() {
     let id = setInterval(frame, 15);
 
     function frame() {
-        if (width == 2) {
+        if (width <= 95) {
+            elem.style.borderTopRightRadius = 0;
+            elem.style.borderBottomRightRadius = 0;
+        }
+        if (width === 2) {
             elem.style.width = "0";
             clearInterval(id);
             i = 0;
