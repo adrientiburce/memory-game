@@ -40,7 +40,6 @@ const showAndPreventClick = function (e) {
         moveNumber.innerText = numberClick / 2;
 
         disableClick();
-        decreaseProgress();
         // is it a pair or not ?
         if (lastImagesCliked[1] === lastImagesCliked[3]) {
             imagesNotFound[parseInt(lastImagesCliked[0].getAttribute("data-id"), 10) - 1] = null;
@@ -50,20 +49,25 @@ const showAndPreventClick = function (e) {
             numberPairFound++;
             pairFound.innerText = numberPairFound;
 
-            window.setTimeout(function () {
-                showResult();
-                document.getElementById("progress").width = "100%";
-                resetClickOnBlackImages();
-            }, 1500);
-        } else {
-            window.setTimeout(function () {
-                lastImages[0].src = "images/black.jpeg";
-                lastImages[2].src = "images/black.jpeg";
+            showResult();
+            if (!isGameFinished) {
+                decreaseProgress();
+                window.setTimeout(function () {
+                    resetForNextMove();
+                }, 1500);
+            }
 
-                document.getElementById("progress").width = "100%";
-                showResult();
-                !isGameFinished && resetClickOnBlackImages();
-            }, 1500);
+        } else {
+            showResult();
+            if (!isGameFinished) {
+                decreaseProgress();
+                window.setTimeout(function () {
+                    lastImages[0].src = "images/black.jpeg";
+                    lastImages[2].src = "images/black.jpeg";
+                    resetForNextMove();
+                }, 1500);
+
+            }
         }
         // reset last 2 images array
         lastImagesCliked = [];
@@ -93,10 +97,11 @@ function disableClick() {
     });
 }
 
-function resetClickOnBlackImages() {
+function resetForNextMove() {
     imagesNotFound.forEach(function (image) {
         if (image != null) image.addEventListener('click', showAndPreventClick);
     })
+    document.getElementById("progress").width = "100%";
 }
 
 function isEven(num) {
@@ -109,18 +114,20 @@ function showResult() {
     if (moveNumber.innerText >= 10) {
         result.innerText = "You lost 😞";
         isGameFinished = true;
-        disableClick();
-        replay.style.visibility = "visible";
-        document.getElementById("result");
     } else if (numberPairFound == 4) {
         result.innerText = "You won 🥳";
-        replay.style.visibility = "visible";
+        isGameFinished = true;
         // PR
         if (localStorage.getItem("record") == null || localStorage.getItem("record") > moveNumber.innerText) {
             alert("New Personal Record 🥳 : " + moveNumber.innerText + " moves");
             localStorage.setItem("record", moveNumber.innerText);
         }
         updatePersonalRecord();
+    }
+    if (isGameFinished) {
+        disableClick();
+        replay.style.visibility = "visible";
+        document.documentElement.scrollTop = 0
     }
 }
 

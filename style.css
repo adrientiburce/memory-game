@@ -33,9 +33,9 @@ img[src="images/black.jpeg"] {
 }
 
 .info {
-    margin: 10px 0;
+    margin-bottom: .5em;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 1.5em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,21 +48,21 @@ img[src="images/black.jpeg"] {
     margin: 0 2em;
 }
 
-.info .record {
-    position: absolute;
-    left: 4em;
-    font-size: 20px;
+.top-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5em;
+    margin: .5em 3em;
 }
 
-.info button {
+.top-info button {
     visibility: hidden;
-    position: absolute;
-    right: 5em;
-    font-size: 15px;
     padding: 5px 10px;
     border: 1px solid black;
     border-radius: 5px;
     background-color: #fff;
+    font-size: 1em;
 }
 
 .progress {
@@ -96,35 +96,34 @@ body {
 footer {
     text-align: right;
     margin: 10px;
-    font-size: 20px;
+    font-size: 1.2em;
     font-style: italic;
     color: #1d1d1d;
 }
 
 
-@media screen and (max-width: 700px ) {
+@media all and (max-width: 700px ) {
     img {
-        width: 120px;
-        height: 120px;
+        width: 110px;
+        height: 110px;
     }
 
     .grid-container {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr 1fr;
-        gap: 3px 15vw;
+        gap: .8em 8vw;
     }
 
-
-    .info .record {
-        position: static;
+    .top-info {
+        margin: .5em;
     }
 
-    .info * {
-        font-size: 15px;
+    .info {
+        font-size: 1em;
     }
 }
 
-@media screen and (min-width: 700px)  and (max-width: 900px ) {
+@media screen and (min-width: 700px) and (max-width: 900px) {
     img {
         width: 150px;
         height: 150px;
@@ -132,7 +131,7 @@ footer {
 }
 
 
-@media screen and (min-width: 900px)  and (max-width: 1200px ) {
+@media screen and (min-width: 900px) and (max-width: 1200px){
     img {
         width: 200px;
         height: 200px;

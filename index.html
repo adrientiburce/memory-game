@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <title>Memory Game</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 
 <body>
 <div id="content">
+    <div class="top-info">
+        <div id="record" class="record"></div>
+        <button id="replay" onclick="location.reload();">🎲 Replay</button>
+    </div>
     <div class="info">
-        <div id="record" class="record">
-        </div>
         <div class="current">
             <p>Moves made : <span id="js-moveNumber">0</span></p>
             <p>Pair found : <span id="js-pairFound">0</span></p>
         </div>
-        <div id="result">
-        </div>
-        <button id="replay" onclick="location.reload();">🎲 Replay</button>
+        <div id="result"></div>
     </div>
 
     <div class="progress">
