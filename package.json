@@ -1,0 +1,22 @@
+{
+  "name": "memory_game",
+  "version": "1.0.0",
+  "description": "A classic memory game built in JS/TS",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrientiburce/adrientiburce.memory.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adrientiburce/adrientiburce.memory/issues"
+  },
+  "homepage": "https://github.com/adrientiburce/adrientiburce.memory#readme",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
